@@ -1,6 +1,5 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: %i[ show edit update destroy ]
-  before_action :authenticate_user!
 
   # GET /projects or /projects.json
   def index
@@ -22,6 +21,7 @@ class ProjectsController < ApplicationController
 
   # POST /projects or /projects.json
   def create
+    before_action :authenticate_user!
     @project = Project.new(project_params)
 
     respond_to do |format|
@@ -37,6 +37,7 @@ class ProjectsController < ApplicationController
 
   # PATCH/PUT /projects/1 or /projects/1.json
   def update
+    before_action :authenticate_user!
     respond_to do |format|
       if @project.update(project_params)
         format.html { redirect_to @project, notice: "Project was successfully updated." }
@@ -50,6 +51,7 @@ class ProjectsController < ApplicationController
 
   # DELETE /projects/1 or /projects/1.json
   def destroy
+    before_action :authenticate_user!
     @project.destroy
     respond_to do |format|
       format.html { redirect_to projects_url, notice: "Project was successfully destroyed." }
